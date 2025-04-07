@@ -32,6 +32,10 @@
 		"tailwindcss": "^4.0.0",
 		"typescript": "^5.0.0",
 		"typescript-eslint": "^8.20.0",
-		"vite": "^6.0.0"
+		"vite": "^6.0.0",
+		"vite-plugin-node-polyfills": "^0.23.0"
+	},
+	"dependencies": {
+		"@meshsdk/web3-sdk": "^0.0.20"
 	}
 }
