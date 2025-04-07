@@ -8,8 +8,9 @@ const sdk = new Web3Sdk({
     "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgpZ1AxSsh91Asztf5yzFuVA/P5bd6a2B+6ErDwwhpd0mhRANCAAQ3BgV9w250L1VKgPohcyWWjesWUNoICifsWF7qyp9JBO/9ZIhtLGcuI12JWBLrUOOkpwN0277HfyFQ6X4GtPrB",
 });
 
-const createDevWallet = async () => {
-  await sdk.wallet.createWallet();
+const _createDevWallet = async () => {
+  // It's expected that you save the id of the wallet in your applications database in order to connect it with a user.
+  const { id: _id } = await sdk.wallet.createWallet();
 
   const wallets = await sdk.wallet.getWallets();
 
