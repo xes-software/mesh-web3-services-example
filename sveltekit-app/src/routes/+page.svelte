@@ -4,6 +4,7 @@
 	let isConnected = $state(false);
 	let walletAddress = $state('');
 	let isConnecting = $state(false);
+	let wallet = $state<Web3Wallet | undefined>();
 
 	async function connectWallet() {
 		try {
@@ -11,9 +12,10 @@
 
 			Web3Wallet.enable({
 				appUrl: 'http://localhost:3000',
-				projectId: '794b0e0d-4903-4ad8-9be6-0ab139fc2652',
+				projectId: 'c5da4bcd-f393-44cb-a2b3-776af14a3052',
 				networkId: 0
 			}).then((w) => {
+				wallet = w;
 				walletAddress = w.addresses.baseAddress?.toBech32()!;
 				isConnected = true;
 			});
@@ -30,6 +32,17 @@
 			isConnected = false;
 		} catch (error) {
 			console.error('Failed to disconnect wallet:', error);
+		}
+	}
+
+	async function signData() {
+		try {
+			if (wallet) {
+				const sig = await wallet.signData('stuff');
+				console.log('Signature:', sig);
+			}
+		} catch (e) {
+			console.error('Failed to sign data:', e);
 		}
 	}
 </script>
@@ -66,6 +79,7 @@
 			{#if isConnected}
 				<p class="font-medium text-green-600">Connected</p>
 				<p class="mt-2 break-all">Address: {walletAddress}</p>
+				<button onclick={() => signData()}>Sign Data: "Stuff"</button>
 			{:else}
 				<p class="text-gray-600">Not connected. Click the button above to connect your wallet.</p>
 			{/if}
